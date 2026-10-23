@@ -349,6 +349,17 @@ describe('getReviewThumbnailURL', () => {
     ).toBe('/api/frigate/clientid/thumb.jpg');
   });
 
+  it('should not produce a double slash for a path with a leading slash', () => {
+    expect(
+      getReviewThumbnailURL(
+        'clientid',
+        createFrigateReview({
+          thumb_path: '/clips/review/thumb.webp',
+        }),
+      ),
+    ).toBe('/api/frigate/clientid/clips/review/thumb.webp');
+  });
+
   it('should return null when no thumb path', () => {
     expect(
       getReviewThumbnailURL(

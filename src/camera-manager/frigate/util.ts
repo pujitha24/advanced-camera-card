@@ -196,7 +196,10 @@ export const getReviewThumbnailURL = (
   if (!review.thumb_path) {
     return null;
   }
-  const path = review.thumb_path.replace('/media/frigate/', '');
+  // Some Frigate versions return a path with a leading slash that is not under
+  // `/media/frigate/` (e.g. `/clips/review/...`), which would otherwise produce a
+  // double slash that the Frigate integration cannot route.
+  const path = review.thumb_path.replace('/media/frigate/', '').replace(/^\/+/, '');
   return `/api/frigate/${clientId}/${path}`;
 };
 
