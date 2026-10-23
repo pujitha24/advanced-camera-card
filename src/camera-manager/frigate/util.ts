@@ -196,7 +196,7 @@ export const getReviewThumbnailURL = (
   if (!review.thumb_path) {
     return null;
   }
-  const path = review.thumb_path.replace('/media/frigate/', '');
+  const path = review.thumb_path.replace('/media/frigate/', '').replace(/^\/+/, '');
   return `/api/frigate/${clientId}/${path}`;
 };
 
